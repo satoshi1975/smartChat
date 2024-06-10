@@ -1,0 +1,216 @@
+basePath: /
+definitions:
+  models.Profile:
+    properties:
+      bio:
+        type: string
+      blocked:
+        items:
+          type: integer
+        type: array
+      first_name:
+        type: string
+      friends:
+        items:
+          type: integer
+        type: array
+      id:
+        type: integer
+      last_name:
+        type: string
+      user_id:
+        type: integer
+    type: object
+host: localhost:8081
+info:
+  contact: {}
+  description: This is a sample profile service for SmartChat.
+  title: SmartChat Profile Service API
+  version: "1.0"
+paths:
+  /profiles:
+    post:
+      consumes:
+      - application/json
+      description: Create a new profile for the authenticated user
+      parameters:
+      - description: Profile
+        in: body
+        name: profile
+        required: true
+        schema:
+          $ref: '#/definitions/models.Profile'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Profile'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Create a new profile
+      tags:
+      - profiles
+  /profiles/{id}:
+    delete:
+      description: Delete a profile by its ID
+      parameters:
+      - description: Profile ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Delete a profile
+      tags:
+      - profiles
+    get:
+      description: Get a profile by its ID
+      parameters:
+      - description: Profile ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Profile'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get a profile by ID
+      tags:
+      - profiles
+    put:
+      consumes:
+      - application/json
+      description: Update a profile by its ID
+      parameters:
+      - description: Profile ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Profile
+        in: body
+        name: profile
+        required: true
+        schema:
+          $ref: '#/definitions/models.Profile'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Profile'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Update a profile
+      tags:
+      - profiles
+  /profiles/{id}/block:
+    post:
+      consumes:
+      - application/json
+      description: Block a user
+      parameters:
+      - description: Profile ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Blocked ID
+        in: body
+        name: block
+        required: true
+        schema:
+          $ref: '#/definitions/models.Profile'
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Block a user
+      tags:
+      - profiles
+  /profiles/{id}/friends:
+    post:
+      consumes:
+      - application/json
+      description: Add a friend to the user's friend list
+      parameters:
+      - description: Profile ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Friend ID
+        in: body
+        name: friend
+        required: true
+        schema:
+          $ref: '#/definitions/models.Profile'
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Add a friend
+      tags:
+      - profiles
+swagger: "2.0"

@@ -1,0 +1,10 @@
+db:
+  host: "localhost"
+  port: "5433"
+  user: "satoshi"
+  password: "satoshi"
+  dbname: "smartchatmain"
+  sslmode: "disable"
+
+jwt:
+  secret_key: "your_secret_key"
